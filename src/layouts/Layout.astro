@@ -1,0 +1,62 @@
+---
+import Header from "../components/Header.tsx";
+import "@/styles/globals.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+const { pathname } = Astro.url;
+
+const { user } = Astro.locals;
+
+console.log("user is ", user);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Outfit:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  </head>
+  <body class="flex min-h-screen max-w-screen flex-col overflow-x-hidden">
+    <ToastContainer client:load />
+    {pathname !== "/auth" && <Header {user} client:load />}
+    <div class="relative z-10 flex flex-1 flex-col">
+      <slot />
+    </div>
+  </body>
+</html>
+<style is:global>
+  body:before {
+    content: "";
+    position: fixed;
+    display: block;
+    inset: 0;
+    z-index: 11;
+    background: #0d0f14;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: "Outfit", serif;
+  }
+
+  .logo {
+    /* font-family: "Rubik Mono One", monospace; */
+    font-family: "Yatra One", system-ui;
+  }
+</style>
