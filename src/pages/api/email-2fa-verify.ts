@@ -2,6 +2,7 @@ import { db } from "@/lib/db";
 import { users } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
+
 export async function POST({ request }) {
   const { userId, code } = request.body;
   console.log("request us ", request.body);
